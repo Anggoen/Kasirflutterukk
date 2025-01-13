@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kasirflutter_/main.dart';
 
 void main() {
@@ -30,7 +32,10 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Column(
-        
+        children: [
+          
+          
+        ],
       ),
     );
   }

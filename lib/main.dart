@@ -4,12 +4,13 @@ import 'package:kasirflutter_/login.dart';
 import 'package:kasirflutter_/register.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(
-      url: 'https://caasbulkvjeqwuchcqnk.supabase.co',
-      anonKey:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhYXNidWxrdmplcXd1Y2hjcW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYyOTM4ODQsImV4cCI6MjA1MTg2OTg4NH0.tMpN6SNEhY_he-BnUvvz8f9iyGK5FV1v1QPrfQRKlaE');
+    url: 'https://caasbulkvjeqwuchcqnk.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhYXNidWxrdmplcXd1Y2hjcW5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzYyOTM4ODQsImV4cCI6MjA1MTg2OTg4NH0.tMpN6SNEhY_he-BnUvvz8f9iyGK5FV1v1QPrfQRKlaE',
+  );
   runApp(const MyApp());
 }
 
@@ -67,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
               borderRadius: BorderRadius.circular(50.0),
               child: Image.asset(
                 'assets/images/toko.webp',
-                height: 350,
-                width: 250,
+                height: 400,
+                width: 300,
                 fit: BoxFit.cover,
               ),
             ),

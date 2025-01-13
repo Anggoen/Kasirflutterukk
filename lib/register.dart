@@ -4,8 +4,7 @@ import 'package:kasirflutter_/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class RegistrasiKasir extends StatefulWidget {
-  const RegistrasiKasir({super.key});
-
+  // const RegistrasiKasir({super.key});
   @override
   State<RegistrasiKasir> createState() => _LoginpageKasirState();
 }
@@ -16,7 +15,7 @@ class _LoginpageKasirState extends State<RegistrasiKasir> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _roleController = TextEditingController();
 
-  Future<void> _addUser() async {
+  Future<void> _addRegistrasi() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -160,7 +159,7 @@ class _LoginpageKasirState extends State<RegistrasiKasir> {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              _addUser();
+                              _addRegistrasi();
                             },
                             child: Text('Registrasi'))
                       ],
