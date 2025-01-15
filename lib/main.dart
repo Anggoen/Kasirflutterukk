@@ -3,6 +3,7 @@ import 'package:kasirflutter_/kasir.dart';
 import 'package:kasirflutter_/login.dart';
 import 'package:kasirflutter_/register.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:kasirflutter_/insertProduk.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
