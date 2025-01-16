@@ -4,6 +4,7 @@ import 'package:kasirflutter_/login.dart';
 import 'package:kasirflutter_/register.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:kasirflutter_/insertProduk.dart';
+import 'package:kasirflutter_/deleteProduk.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
