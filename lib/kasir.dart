@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kasirflutter_/deleteProduk.dart';
 import 'package:kasirflutter_/insertProduk.dart'; // Pastikan Insertproduct didefinisikan di sini
 import 'package:kasirflutter_/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -180,7 +181,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                          deleteProduk(book['idProduk'],context);
+                          
                           },
                           icon: Icon(
                             Icons.delete,
