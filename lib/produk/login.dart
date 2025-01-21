@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kasirflutter_/kasir.dart';
+import 'package:kasirflutter_/produk/kasir.dart';
 import 'package:kasirflutter_/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

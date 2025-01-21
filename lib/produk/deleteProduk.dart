@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kasirflutter_/kasir.dart';
+import 'package:kasirflutter_/produk/kasir.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> deleteProduk(int idProduk, BuildContext context) async {

@@ -246,11 +246,8 @@ class PelangganPage extends StatefulWidget {
 class _PelangganPageState extends State<PelangganPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pelanggan Setia'),
-        centerTitle: true,
-      ),
+    return const Scaffold(
+
     );
   }
 }

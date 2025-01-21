@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kasirflutter_/kasir.dart';
-import 'package:kasirflutter_/login.dart';
-import 'package:kasirflutter_/register.dart';
+import 'package:kasirflutter_/produk/editProduk.dart';
+import 'package:kasirflutter_/produk/kasir.dart';
+import 'package:kasirflutter_/produk/login.dart';
+import 'package:kasirflutter_/produk/register.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:kasirflutter_/insertProduk.dart';
-import 'package:kasirflutter_/deleteProduk.dart';
+import 'package:kasirflutter_/produk/insertProduk.dart';
+import 'package:kasirflutter_/produk/deleteProduk.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 1, 57)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Kasir'),
+      home: MyHomePage(title: 'Kasir'),
+      // home: const MyHomePage(title: 'Kasir'),
       debugShowCheckedModeBanner: false,
     );
   }
