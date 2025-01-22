@@ -46,6 +46,7 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
     setState(() {
       _selectedIndex = index; // Mengubah halaman berdasarkan item yang dipilih
     });
+    print("Halaman yang terpilih: $_selectedIndex");
   }
 
   @override
@@ -59,7 +60,7 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Colors.black,
+              color: Color.fromARGB(255, 154, 134, 208),
             ),
             label: 'Home', // Menambahkan label agar lebih jelas
           ),
@@ -68,7 +69,7 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
               Icons.money,
               color: Color.fromARGB(255, 154, 134, 208),
             ),
-            label: 'Penjualan',
+            label: 'Pelanggan',
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -236,26 +237,99 @@ class _HomePageState extends State<HomePage> {
 }
 
 // Halaman untuk Pelanggan
-class PelangganPage extends StatefulWidget {
+class PelangganPage extends StatelessWidget {
   const PelangganPage({super.key});
 
   @override
-  State<PelangganPage> createState() => _PelangganPageState();
-}
-
-class _PelangganPageState extends State<PelangganPage> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pelanggan Setia'),
-        centerTitle: true,
-      ),
+    return MaterialApp(
+      title: 'Pelanggan Page',
+      debugShowCheckedModeBanner: false,
+      home: VelangganPage(),
     );
   }
 }
 
-// Halaman untuk Keranjang
+class VelangganPage extends StatefulWidget {
+  const VelangganPage({super.key});
+
+  @override
+  State<VelangganPage> createState() => _VelangganPageState();
+}
+
+class _VelangganPageState extends State<VelangganPage> {
+  List<Map<String, dynamic>> pelanggan = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchPelanggan();
+  }
+
+  Future<void> fetchPelanggan() async {
+    final response = await Supabase.instance.client.from('pelanggan').select();
+
+    setState(() {
+      pelanggan = List<Map<String, dynamic>>.from(response);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 154, 134, 208),
+        leading: Icon(
+          // leading digunakan untuk menaruh icon agar bisa terletak disebelah kiri
+          Icons.menu,
+          color: Colors.white,
+        ),
+        title: Text(
+          'Daftar Pelanggan',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+        actions: [
+          // action digunakan untuk menaruh icon agar bisa terletak disebelah kanan
+          IconButton(
+              onPressed: fetchPelanggan,
+              icon: Icon(
+                Icons.refresh,
+                color: Colors.white,
+              ))
+        ],
+      ),
+
+      // body: pelanggan.isEmpty,
+      // ? Center(child: CircularProgressIndicator())
+      // : ListView.builder(
+      //   itemCount: pelanggan.length,
+      //   itemBuilder: (context, index) {
+      //     final book = pelanggan[index];
+      //     return Container(
+      //       margin: EdgeInsets.all(10.0),
+      //       decoration: BoxDecoration(
+      //         color: Colors.yellow.shade200,
+      //         borderRadius: BorderRadius.circular(15.0),
+      //         boxShadow: [
+      //           BoxShadow(
+      //             color: Colors.black.withOpacity(0.5),
+      //             blurRadius: 15,
+      //             offset: Offset(4, 5),
+      //           ),
+      //         ]
+      //       ),
+      //       child: ListTile(
+      //         title: Text(book[]),
+      //       ),
+      //     ),
+      // }
+      // )
+    );
+  }
+}
+
+// Halaman untuk Penjualan
 class KeranjangPage extends StatelessWidget {
   const KeranjangPage({super.key});
 
@@ -274,7 +348,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Profile Page', style: TextStyle(fontSize: 24)),
+      child: Text('Halaman Profil', style: TextStyle(fontSize: 24)),
     );
   }
 }
