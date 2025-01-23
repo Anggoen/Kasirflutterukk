@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: KasirPage(),
-      // home: MyHomePage(title: 'Kasir'),
+     // home: MyHomePage(title: 'Kasir'),
       // home: const MyHomePage(title: 'Kasir'),
       debugShowCheckedModeBanner: false,
     );

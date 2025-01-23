@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kasirflutter_/pelanggan/deletePelanggan.dart';
+import 'package:kasirflutter_/pelanggan/insertPelanggan.dart';
 import 'package:kasirflutter_/produk/deleteProduk.dart';
 import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/produk/insertProduk.dart'; // Pastikan Insertproduct didefinisikan di sini
@@ -104,10 +106,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    fetchBooks();
+    fetchproduk();
   }
 
-  Future<void> fetchBooks() async {
+  Future<void> fetchproduk() async {
     final response = await Supabase.instance.client.from('produk').select();
 
     setState(() {
@@ -127,7 +129,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: fetchBooks,
+            onPressed: fetchproduk,
             icon: Icon(
               Icons.refresh,
               color: Colors.white,
@@ -209,7 +211,7 @@ class _HomePageState extends State<HomePage> {
               );
 
               if (result == true) {
-                fetchBooks();
+                fetchproduk();
               }
             },
             style: ElevatedButton.styleFrom(
@@ -299,32 +301,92 @@ class _VelangganPageState extends State<VelangganPage> {
               ))
         ],
       ),
+      body: pelanggan.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: pelanggan.length,
+              itemBuilder: (context, index) {
+                final book = pelanggan[index];
+                return Container(
+                  margin: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 15,
+                        offset: Offset(4, 5),
+                      ),
+                    ],
+                  ),
+                  child: ListTile(
+                    title: Text(
+                        book['namaPelanggan'] ?? 'Tidak ada Nama Pelanggan',
+                        style: TextStyle(fontSize: 18)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            book['alamatPelanggan'] ??
+                                'Tidak ada Alamat Pelanggan',
+                            style: TextStyle(fontSize: 14)),
+                        Text(book['nomorTelepon'] ?? 'Tidak ada Nomor Telepon',
+                            style: TextStyle(fontSize: 12)),
+                      ],
+                    ),
+                    //trailing digunakan untuk menambahkan item disebelah kanan, ini properti dari widget listile
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            deletePelanggan(book['idPelanggan'], context);
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: ElevatedButton(
+            onPressed: () async {
+              //navigasi ke halaman insert dan menunggu  hasil
+              final result = await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddPelanggan()));
 
-      // body: pelanggan.isEmpty,
-      // ? Center(child: CircularProgressIndicator())
-      // : ListView.builder(
-      //   itemCount: pelanggan.length,
-      //   itemBuilder: (context, index) {
-      //     final book = pelanggan[index];
-      //     return Container(
-      //       margin: EdgeInsets.all(10.0),
-      //       decoration: BoxDecoration(
-      //         color: Colors.yellow.shade200,
-      //         borderRadius: BorderRadius.circular(15.0),
-      //         boxShadow: [
-      //           BoxShadow(
-      //             color: Colors.black.withOpacity(0.5),
-      //             blurRadius: 15,
-      //             offset: Offset(4, 5),
-      //           ),
-      //         ]
-      //       ),
-      //       child: ListTile(
-      //         title: Text(book[]),
-      //       ),
-      //     ),
-      // }
-      // )
+              //jika hasil nya true. refresh list pelanggan
+              if (result == true) {
+                fetchPelanggan();
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 154, 134, 208),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [Icon(Icons.add, color: Colors.white)],
+            )),
+      ),
     );
   }
 }
