@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/kasir.dart';
-import 'package:kasirflutter_/produk/login.dart';
-import 'package:kasirflutter_/produk/register.dart';
+import 'package:kasirflutter_/user/login.dart';
+import 'package:kasirflutter_/user/insertUser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:kasirflutter_/produk/insertProduk.dart';
 import 'package:kasirflutter_/produk/deleteProduk.dart';
@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 1, 57)),
         useMaterial3: true,
       ),
-      home: KasirPage(),
-     // home: MyHomePage(title: 'Kasir'),
+      // home: KasirPage(),
+      home: MyHomePage(title: 'Kasir'),
       // home: const MyHomePage(title: 'Kasir'),
       debugShowCheckedModeBanner: false,
     );
@@ -87,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegistrasiKasir()),
+                              builder: (context) => RegisterPage()),
                         );
                       },
                       child: Text(

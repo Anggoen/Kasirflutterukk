@@ -24,8 +24,8 @@ class _AddPelangganState extends State<AddPelanggan> {
     final nomorTelepon = _nomorTelepon.text;
 
     //validasi input
-    if (namaPelanggan
-            .isEmpty || // || adalah operator OR  yangmana jika inputan pengguna kosong maka hasil dari pernyatan if akan true dan menyebbakan pesan peringatan/snackbar keluar
+    // || adalah operator OR  yang mana jika inputan pengguna kosong maka hasil dari pernyatan if akan true dan menyebbakan pesan peringatan/snackbar keluar
+    if (namaPelanggan.isEmpty ||
         alamatPelangan.isEmpty ||
         nomorTelepon.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -63,7 +63,10 @@ class _AddPelangganState extends State<AddPelanggan> {
     Navigator.pop(context, true);
 
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => VelangganPage())); // ini diarahkan ke halaman/class nya tampil pelanggan
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                VelangganPage())); // ini diarahkan ke halaman/class nya tampil pelanggan
   }
 
   @override

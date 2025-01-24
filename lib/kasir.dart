@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kasirflutter_/pelanggan/deletePelanggan.dart';
+import 'package:kasirflutter_/pelanggan/editPelanggan.dart';
 import 'package:kasirflutter_/pelanggan/insertPelanggan.dart';
 import 'package:kasirflutter_/produk/deleteProduk.dart';
 import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/produk/insertProduk.dart'; // Pastikan Insertproduct didefinisikan di sini
 import 'package:kasirflutter_/main.dart';
+import 'package:kasirflutter_/user/insertUser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -42,13 +44,14 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
     PelangganPage(),
     KeranjangPage(),
     ProfilePage(),
+    UserPage(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index; // Mengubah halaman berdasarkan item yang dipilih
     });
-    print("Halaman yang terpilih: $_selectedIndex");
+    // print("Halaman yang terpilih: $_selectedIndex");
   }
 
   @override
@@ -87,6 +90,12 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
             ),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+                color: Color.fromARGB(255, 154, 134, 208),
+              ),
+              label: 'User'),
         ],
       ),
     );
@@ -341,7 +350,12 @@ class _VelangganPageState extends State<VelangganPage> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Editpelanggan(
+                                          pelanggan: book,
+                                        )));
                           },
                           icon: Icon(
                             Icons.edit,
@@ -399,6 +413,155 @@ class KeranjangPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text('Penjualan Page', style: TextStyle(fontSize: 24)),
+    );
+  }
+}
+
+//Halaman untuk User
+class UserPage extends StatefulWidget {
+  const UserPage({super.key});
+
+  @override
+  State<UserPage> createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  List<Map<String, dynamic>> user = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUsers();
+  }
+
+  Future<void> fetchUsers() async {
+    final response = await Supabase.instance.client.from('user').select();
+
+    setState(() {
+      user = List<Map<String, dynamic>>.from(response);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(Icons.menu, color: Colors.white),
+        title: Text('Daftar User'),
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: fetchUsers,
+              icon: Icon(Icons.refresh),
+              color: Colors.white),
+        ],
+      ),
+      body: user.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: user.length,
+              itemBuilder: (context, index) {
+                final book = user[index];
+                return Container(
+                  margin: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        blurRadius: 15,
+                        offset: Offset(4, 5),
+                      )
+                    ],
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      book['username'] ?? 'No username',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          book['password'] ?? 'No password',
+                          style: TextStyle(fontSize: 14),
+                        )
+                      ],
+                    ),
+                    //trailing digunakan untuk menaruh item disebelah kanan tanpa memberi manual dengan memberi jarak/spacing
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+      // floatingActionButton: Padding(
+      //   padding: EdgeInsets.all(16.0),
+      //   child: ElevatedButton(
+      //       onPressed: () async {
+      //         final result = await Navigator.push(
+      //           context,
+      //           MaterialPageRoute(builder: (context) => RegisterPage()),
+      //         );
+
+      //         if (result == true) {
+      //           fetchUsers();
+      //         }
+      //       },
+      //       style: ElevatedButton.styleFrom(
+      //         backgroundColor:
+      //       ),
+      //       child: ),
+      //),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () async {
+            // Navigate to the insert page and await the result
+            final result = await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RegisterPage()),
+            );
+
+            // If the result is true, refresh the book list
+            if (result == true) {
+              fetchUsers();
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue[900], // Background color
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12), // Rounded corners
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [Icon(Icons.add, color: Colors.white)],
+          ),
+        ),
+      ),
     );
   }
 }
