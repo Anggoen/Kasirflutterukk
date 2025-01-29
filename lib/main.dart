@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 1, 57)),
         useMaterial3: true,
       ),
-      // home: KasirPage(),
-      home: MyHomePage(title: 'Kasir'),
+      home: KasirPage(),
+      // home: MyHomePage(title: 'Kasir'),
       // home: const MyHomePage(title: 'Kasir'),
       debugShowCheckedModeBanner: false,
     );
@@ -82,20 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RegisterPage()),
-                        );
-                      },
-                      child: Text(
-                        'Registrasi',
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      )),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => RegisterPage()),
+                  //       );
+                  //     },
+                  //     child: Text(
+                  //       'Registrasi',
+                  //       style: TextStyle(
+                  //         fontSize: 18,
+                  //       ),
+                  //     )),
                   SizedBox(
                     width: 30.0,
                   ),

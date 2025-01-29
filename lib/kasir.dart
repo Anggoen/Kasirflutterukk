@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +10,8 @@ import 'package:kasirflutter_/produk/deleteProduk.dart';
 import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/produk/insertProduk.dart'; // Pastikan Insertproduct didefinisikan di sini
 import 'package:kasirflutter_/main.dart';
+import 'package:kasirflutter_/user/deleteUser.dart';
+import 'package:kasirflutter_/user/editUser.dart';
 import 'package:kasirflutter_/user/insertUser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -92,7 +96,7 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
           ),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                Icons.follow_the_signs_rounded,
                 color: Color.fromARGB(255, 154, 134, 208),
               ),
               label: 'User'),
@@ -241,9 +245,6 @@ class _HomePageState extends State<HomePage> {
             )),
       ),
     );
-    // return Center(
-    //   child: Text('Welcome to Home Page', style: TextStyle(fontSize: 24)),
-    // );
   }
 }
 
@@ -447,14 +448,18 @@ class _UserPageState extends State<UserPage> {
     return Scaffold(
       appBar: AppBar(
         leading: Icon(Icons.menu, color: Colors.white),
-        title: Text('Daftar User'),
+        title: Text(
+          'Daftar User',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: fetchUsers,
-              icon: Icon(Icons.refresh),
-              color: Colors.white),
+            onPressed: fetchUsers,
+            icon: Icon(Icons.refresh, color: Colors.white),
+          ),
         ],
+        backgroundColor: Color.fromARGB(255, 154, 134, 208),
       ),
       body: user.isEmpty
           ? Center(child: CircularProgressIndicator())
@@ -466,19 +471,19 @@ class _UserPageState extends State<UserPage> {
                   margin: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.5),
                         blurRadius: 15,
                         offset: Offset(4, 5),
-                      )
+                      ),
                     ],
                   ),
                   child: ListTile(
                     title: Text(
                       book['username'] ?? 'No username',
-                      style: TextStyle(fontSize: 18.0),
+                      style: TextStyle(fontSize: 18),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -486,25 +491,28 @@ class _UserPageState extends State<UserPage> {
                         Text(
                           book['password'] ?? 'No password',
                           style: TextStyle(fontSize: 14),
-                        )
+                        ),
                       ],
                     ),
-                    //trailing digunakan untuk menaruh item disebelah kanan tanpa memberi manual dengan memberi jarak/spacing
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Colors.blue,
-                          ),
-                        ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditUser(
+                                            user: book,
+                                          )));
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.blue,
+                            )),
                         IconButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            deleteUser(book['id'], context);
                           },
                           icon: Icon(
                             Icons.delete,
@@ -515,52 +523,31 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ),
                 );
-              }),
-      // floatingActionButton: Padding(
-      //   padding: EdgeInsets.all(16.0),
-      //   child: ElevatedButton(
-      //       onPressed: () async {
-      //         final result = await Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => RegisterPage()),
-      //         );
-
-      //         if (result == true) {
-      //           fetchUsers();
-      //         }
-      //       },
-      //       style: ElevatedButton.styleFrom(
-      //         backgroundColor:
-      //       ),
-      //       child: ),
-      //),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
-          onPressed: () async {
-            // Navigate to the insert page and await the result
-            final result = await Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RegisterPage()),
-            );
-
-            // If the result is true, refresh the book list
-            if (result == true) {
-              fetchUsers();
-            }
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue[900], // Background color
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12), // Rounded corners
+              },
             ),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [Icon(Icons.add, color: Colors.white)],
-          ),
-        ),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: ElevatedButton(
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterPage()),
+              );
+
+              //jika relsult true mana refresh halaamn user dengan kode berikut
+              if (result == true) {
+                fetchUsers();
+              }
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.add,
+                  color: Color.fromARGB(255, 154, 134, 208),
+                ),
+              ],
+            )),
       ),
     );
   }
