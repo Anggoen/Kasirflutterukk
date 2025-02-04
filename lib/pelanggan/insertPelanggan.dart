@@ -118,7 +118,13 @@ class _AddPelangganState extends State<AddPelanggan> {
                     _addPelanggan();
                   }
                 },
-                child: Text('Tambah Pelanggan'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 154, 134, 208),
+                ),
+                child: Text(
+                  'Tambah Pelanggan',
+                  style: TextStyle(color: Colors.white),
+                ),
               )
             ],
           ),

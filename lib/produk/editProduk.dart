@@ -1,8 +1,5 @@
-import 'dart:js_interop';
-
 import 'package:flutter/material.dart';
 import 'package:kasirflutter_/kasir.dart';
-import 'package:kasirflutter_/main.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EditProduk extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kasirflutter_/kasir.dart';
-import 'package:kasirflutter_/main.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Insertproduk extends StatefulWidget {
@@ -91,6 +91,10 @@ class _InsertprodukState extends State<Insertproduk> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Masukkan Harga Produk';
+                    } else {
+                      if (double.tryParse(value) == null) {
+                        return 'Harga harus berupa angka';
+                      }
                     }
                   },
                 ),
@@ -100,6 +104,10 @@ class _InsertprodukState extends State<Insertproduk> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Masukkan Stok';
+                    } else {
+                      if (double.tryParse(value) == null) {
+                        return "Stok harus berupa angka";
+                      }
                     }
                   },
                 ),
@@ -110,7 +118,15 @@ class _InsertprodukState extends State<Insertproduk> {
                       _tambahProduk();
                     }
                   },
-                  child: Text('Tambah Produk'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 154, 134, 208),
+                  ),
+                  child: Text(
+                    'Tambah Produk',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ],
             )),

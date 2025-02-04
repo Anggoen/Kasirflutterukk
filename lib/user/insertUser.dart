@@ -33,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
       {
         'username': username,
         'password': password,
+        'role': 'petugass',
       }
     ]);
 
@@ -96,7 +97,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       _addUser();
                     }
                   },
-                  child: Text('Tambah User'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 154, 134, 208),
+                  ),
+                  child: Text(
+                    'Tambah User',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 )
               ],
             )),

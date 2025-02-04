@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,10 +7,10 @@ import 'package:kasirflutter_/pelanggan/insertPelanggan.dart';
 import 'package:kasirflutter_/produk/deleteProduk.dart';
 import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/produk/insertProduk.dart'; // Pastikan Insertproduct didefinisikan di sini
-import 'package:kasirflutter_/main.dart';
 import 'package:kasirflutter_/user/deleteUser.dart';
 import 'package:kasirflutter_/user/editUser.dart';
 import 'package:kasirflutter_/user/insertUser.dart';
+import 'package:kasirflutter_/user/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() {
@@ -63,41 +61,46 @@ class _KasirFlutterPageState extends State<KasirFlutterPage> {
     return Scaffold(
       body: _pages[_selectedIndex], // Menampilkan halaman sesuai dengan index
       bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
         currentIndex: _selectedIndex, // Menunjukkan index yang terpilih
+        selectedItemColor:
+            Colors.black, //jika diklik maka item jadi berwana hitam
+        unselectedItemColor:
+            Color.fromARGB(255, 154, 134, 208), //ini jika tidak dipilih
         onTap: _onItemTapped, // Mengubah index saat item dipilih
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              color: Color.fromARGB(255, 154, 134, 208),
+              // color: Color.fromARGB(255, 154, 134, 208),
             ),
             label: 'Home', // Menambahkan label agar lebih jelas
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.money,
-              color: Color.fromARGB(255, 154, 134, 208),
+              // color: Color.fromARGB(255, 154, 134, 208),
             ),
             label: 'Pelanggan',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.shopping_cart,
-              color: Color.fromARGB(255, 154, 134, 208),
+              // color: Color.fromARGB(255, 154, 134, 208),
             ),
             label: 'Keranjang',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
-              color: Color.fromARGB(255, 154, 134, 208),
+              // color: Color.fromARGB(255, 154, 134, 208),
             ),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.follow_the_signs_rounded,
-                color: Color.fromARGB(255, 154, 134, 208),
+                // color: Color.fromARGB(255, 154, 134, 208),
               ),
               label: 'User'),
         ],
@@ -291,11 +294,6 @@ class _VelangganPageState extends State<VelangganPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 154, 134, 208),
-        leading: Icon(
-          // leading digunakan untuk menaruh icon agar bisa terletak disebelah kiri
-          Icons.menu,
-          color: Colors.white,
-        ),
         title: Text(
           'Daftar Pelanggan',
           style: TextStyle(color: Colors.white),
@@ -447,7 +445,6 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.menu, color: Colors.white),
         title: Text(
           'Daftar User',
           style: TextStyle(color: Colors.white),
@@ -539,12 +536,19 @@ class _UserPageState extends State<UserPage> {
                 fetchUsers();
               }
             },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color.fromARGB(255, 154, 134, 208),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.add,
-                  color: Color.fromARGB(255, 154, 134, 208),
+                  color: Colors.white,
                 ),
               ],
             )),
@@ -559,8 +563,64 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Halaman Profil', style: TextStyle(fontSize: 24)),
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Profile',
+            style: TextStyle(color: Colors.white),
+          ),
+          centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 154, 134, 208),
+        ),
+        body: Column(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 50.0),
+                    child: Card(
+                      elevation: 9,
+                      shadowColor: Colors.grey,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 10,
+                                offset: Offset(1, -7))
+                          ],
+                          color: Colors.white,
+                          // color: Color.fromARGB(255, 154, 134, 208),
+                        ),
+                        height: 400.0,
+                        width: 300.0,
+                        child: Column(
+                          children: [],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 30.0),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 154, 134, 208),
+              ),
+              child: Text(
+                'LogOut',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ));
   }
 }

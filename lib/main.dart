@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kasirflutter_/produk/editProduk.dart';
 import 'package:kasirflutter_/kasir.dart';
 import 'package:kasirflutter_/user/login.dart';
-import 'package:kasirflutter_/user/insertUser.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:kasirflutter_/produk/insertProduk.dart';
-import 'package:kasirflutter_/produk/deleteProduk.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,8 +26,8 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 3, 1, 57)),
         useMaterial3: true,
       ),
-      home: KasirPage(),
-      // home: MyHomePage(title: 'Kasir'),
+      // home: KasirPage(),
+      home: MyHomePage(title: 'Kasir'),
       // home: const MyHomePage(title: 'Kasir'),
       debugShowCheckedModeBanner: false,
     );
@@ -47,14 +43,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,20 +70,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) => RegisterPage()),
-                  //       );
-                  //     },
-                  //     child: Text(
-                  //       'Registrasi',
-                  //       style: TextStyle(
-                  //         fontSize: 18,
-                  //       ),
-                  //     )),
                   SizedBox(
                     width: 30.0,
                   ),
@@ -106,9 +80,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           MaterialPageRoute(builder: (context) => LoginPage()),
                         );
                       },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 166, 163, 234)),
                       child: Text(
                         'Login',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18, color: Colors.black),
                       ))
                 ]),
           ],

@@ -1,8 +1,5 @@
-import 'dart:js_interop_unsafe';
-
 import 'package:flutter/material.dart';
 import 'package:kasirflutter_/kasir.dart';
-import 'package:kasirflutter_/pelanggan/insertPelanggan.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> deletePelanggan(int idPelanggan, BuildContext context) async {
