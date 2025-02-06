@@ -17,8 +17,10 @@ Future<void> deleteProduk(int idProduk, BuildContext context) async {
           width: MediaQuery.of(context).size.width / 2.1,
           child: Center(
             child: Text(
-              'Anda yakin ingin menghapus produk ini?',
-              style: TextStyle(fontSize: 14.0),
+              'Anda yakin ingin menghapus produk ini? :|',
+              style: TextStyle(
+                fontSize: 24.0,
+              ),
             ),
           ),
         ),
@@ -27,7 +29,10 @@ Future<void> deleteProduk(int idProduk, BuildContext context) async {
             onPressed: () {
               Navigator.of(context).pop(true);
             },
-            child: Text('Hapues'),
+            child: Text(
+              'Hapues',
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromARGB(255, 154, 134, 208),
             ),
@@ -36,7 +41,10 @@ Future<void> deleteProduk(int idProduk, BuildContext context) async {
             onPressed: () {
               Navigator.of(context).pop(false);
             },
-            child: Text('Batal'),
+            child: Text(
+              'Batal',
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Color.fromARGB(255, 154, 134, 208),
             ),

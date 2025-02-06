@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kasirflutter_/kasir.dart';
 import 'package:kasirflutter_/user/login.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
